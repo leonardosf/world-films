@@ -21,14 +21,14 @@ const genres = {
   10770: 'TV Movie',
 };
 
-const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
-const getImagePath = (path) =>
-  `https://image.tmdb.org/t/p/w500${path}`;
-const getBackdropPath = (path) =>
-  `https://image.tmdb.org/t/p/w500${path}`;
+const API_URL = 'https://api.themoviedb.org/3/movie';
 
-export const getMovies = async () => {
-  const { results } = await fetch(API_URL).then((x) => x.json());
+const getImagePath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
+const getBackdropPath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
+
+export const getMovies = async ({path: urlPath}) => {
+  console.log(`${API_URL + urlPath} ?api_key=${API_KEY}`);
+  const { results } = await fetch(`${API_URL + urlPath}?api_key=${API_KEY}`).then((x) => x.json());
   const movies = results.map(
     ({
       id,

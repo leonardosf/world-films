@@ -7,10 +7,8 @@ import {
     Image,
     Dimensions,
     Animated,
-    Platform,
-    TouchableOpacity,
+    Platform
 } from 'react-native';
-
 import { Button } from 'react-native-paper';
 
 // components
@@ -22,20 +20,18 @@ import ImagemBackground from '../components/ImagemBackground';
 // apiService
 import { getMovies } from '../services/api';
 
-const pathUrl = '/popular';
+const pathUrl = '/now_playing';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const FilmesPopulares = ( { navigation }) => {
+const FilmesEmCartaz = () => {
 
+    
     const [movies, setMovies] = React.useState([]);
-
-    const animacao = new Animated.Value(0);
-
-    const scrollX = React.useRef(animacao).current;
+    const scrollX = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -49,14 +45,6 @@ const FilmesPopulares = ( { navigation }) => {
             fetchData(movies);
         }
     }, [movies]);
-
-    React.useEffect(() => {
-        Animated.spring(animacao, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: false // <-- Add this
-        }).start();
-    }, [])
 
     if (movies.length === 0) {
         return <Loading />;
@@ -120,13 +108,9 @@ const FilmesPopulares = ( { navigation }) => {
                                 </Text>
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
-                                
-                                <TouchableOpacity onPress={() =>
-                                    navigation?.push('detalhe')
-                                }>
-                                    <Text>Ver mais</Text>
-                                </TouchableOpacity >
-
+                                {/* <Text style={{ fontSize: 16 }} numberOfLines={6}>
+                  {item.description}
+                </Text> */}
                             </Animated.View>
                         </View>
                     );
@@ -150,4 +134,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FilmesPopulares;
+export default FilmesEmCartaz;
