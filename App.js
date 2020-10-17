@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -10,14 +10,10 @@ import Home from './screens/home';
 import FilmesEmBreve from './screens/filmesEmBreve';
 import FilmesEmCartaz from './screens/filmesEmCartaz';
 import FilmesPopulares from './screens/filmesPopulares';
-
-const HomeRoute = () => <Home />;
-const FilmesEmCartazRoute = () => <FilmesEmCartaz />;
-const FilmesPopularesRoute = () => <FilmesPopulares />;
-const FilmesEmBreveRoute = () => <FilmesEmBreve />;
+import { Button, Text } from 'react-native-paper';
+import Detalhes from './screens/detalhes';
 
 const Stack = createStackNavigator();
-
 const Drawer = createDrawerNavigator();
 
 const NavigationDrawerStructure = (props) => {
@@ -31,14 +27,7 @@ const NavigationDrawerStructure = (props) => {
     <View style={{ flexDirection: 'row' }}>
       <TouchableOpacity onPress={() => toggleDrawer()}>
         {/*Donute Button Image */}
-        <Image
-          source={{ uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png' }}
-          style={{
-            width: 25,
-            height: 25,
-            marginLeft: 10
-          }}
-        />
+        <Button icon="menu" color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -48,20 +37,19 @@ function HomeScreenStack({ navigation }) {
   return (
     <Stack.Navigator initialRouteName="home">
       <Stack.Screen
-        name="Home"
-        component={HomeRoute}
+        name="home"
+        component={Home}
         options={{
           title: 'Home', //Set Header Title
           headerLeft: () =>
             <NavigationDrawerStructure
               navigationProps={navigation}
             />,
-          headerStyle: {
-            backgroundColor:'transparent'
-          },
+          headerTransparent: true,
           headerTintColor: '#000', //Set Header text color
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
+            fontSize: 25
           },
         }}
       />
@@ -78,19 +66,24 @@ function emCartazScreenStack({ navigation }) {
           <NavigationDrawerStructure
             navigationProps={navigation}
           />,
-        headerStyle: {
-          backgroundColor: 'transparent', //Set Header color
-        },
         headerTintColor: '#000', //Set Header text color
+        headerTransparent: true,
         headerTitleStyle: {
           fontWeight: 'bold', //Set Header text style
+          fontSize: 25
         }
       }}>
       <Stack.Screen
-        name="Em Cartaz"
-        component={FilmesEmCartazRoute}
+        name="cartaz"
+        component={FilmesEmCartaz}
         options={{
           title: 'Em Cartaz', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="emCartaz/Detalhes"
+        component={Detalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
         }} />
     </Stack.Navigator>
   );
@@ -105,19 +98,24 @@ function popularesScreenStack({ navigation }) {
           <NavigationDrawerStructure
             navigationProps={navigation}
           />,
-        headerStyle: {
-          backgroundColor: 'transparent', //Set Header color
-        },
+        headerTransparent: true,
         headerTintColor: '#000', //Set Header text color
         headerTitleStyle: {
           fontWeight: 'bold', //Set Header text style
+          fontSize: 25
         }
       }}>
       <Stack.Screen
-        name="Populares"
-        component={FilmesPopularesRoute}
+        name="populares"
+        component={FilmesPopulares}
         options={{
           title: 'Populares', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="populares/Detalhes"
+        component={Detalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
         }} />
     </Stack.Navigator>
   );
@@ -132,19 +130,23 @@ function emBreveScreenStack({ navigation }) {
           <NavigationDrawerStructure
             navigationProps={navigation}
           />,
-        headerStyle: {
-          backgroundColor: 'transparent', //Set Header color
-        },
+        headerTransparent: true,
         headerTintColor: '#000', //Set Header text color
         headerTitleStyle: {
           fontWeight: 'bold', //Set Header text style
         }
       }}>
       <Stack.Screen
-        name="Em Breve"
-        component={FilmesEmBreveRoute}
+        name="breve"
+        component={FilmesEmBreve}
         options={{
           title: 'Em Breve', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="emBreve/Detalhes"
+        component={Detalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
         }} />
     </Stack.Navigator>
   );

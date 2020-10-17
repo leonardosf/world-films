@@ -9,7 +9,6 @@ import {
     Animated,
     Platform
 } from 'react-native';
-import { Button } from 'react-native-paper';
 
 // components
 import Genres from '../components/Genres';
@@ -18,32 +17,32 @@ import Loading from '../components/Loading';
 import ImagemBackground from '../components/ImagemBackground';
 
 // apiService
-import { getMovies } from '../services/api';
+import { getFilmes } from '../services/api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const pathUrl = '/now_playing';
+const pathUrl = 'now_playing';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const FilmesEmCartaz = () => {
+const FilmesEmCartaz = ({ navigation }) => {
 
-    
     const [movies, setMovies] = React.useState([]);
     const scrollX = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            const movies = await getMovies({path: pathUrl});
-            // Item vazios adicionados
-            // [empty_item, ...movies, empty_item]
-            setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
-        };
+
+        const recuperarFilmes = async () => {
+            const filmes = await getFilmes(pathUrl);
+            setMovies([{ key: 'empty-left' }, ...filmes, { key: 'empty-right' }]);
+        }
 
         if (movies.length === 0) {
-            fetchData(movies);
+            recuperarFilmes(movies)
         }
+
     }, [movies]);
 
     if (movies.length === 0) {
@@ -108,9 +107,11 @@ const FilmesEmCartaz = () => {
                                 </Text>
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
-                                {/* <Text style={{ fontSize: 16 }} numberOfLines={6}>
-                  {item.description}
-                </Text> */}
+                                <TouchableOpacity onPress={() =>
+                                    navigation.push('emCartaz/Detalhes', {filme: item})
+                                }>
+                                    <Text>Ver mais</Text>
+                                </TouchableOpacity >
                             </Animated.View>
                         </View>
                     );

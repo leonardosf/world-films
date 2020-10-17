@@ -11,7 +11,8 @@ export default ({ movies, scrollX }) => {
     return (
         <View style={{ height: BACKDROP_HEIGHT, width, position: 'absolute' }}>
             <FlatList
-                data={movies.reverse()}
+                // data={movies.reverse()} //deixa as imagens aleatorias.
+                data={movies}
                 keyExtractor={(item) => item.key + '-backdrop'}
                 removeClippedSubviews={false}
                 contentContainerStyle={{ width, height: BACKDROP_HEIGHT }}
@@ -40,6 +41,7 @@ export default ({ movies, scrollX }) => {
                                     width,
                                     height: BACKDROP_HEIGHT,
                                     position: 'absolute',
+                                    opacity:1
                                 }}
                             />
                         </Animated.View>

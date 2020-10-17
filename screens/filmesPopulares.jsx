@@ -18,11 +18,12 @@ import Genres from '../components/Genres';
 import Rating from '../components/Rating';
 import Loading from '../components/Loading';
 import ImagemBackground from '../components/ImagemBackground';
+import { getFilmes } from '../services/api';
 
 // apiService
-import { getMovies } from '../services/api';
+// import { getMovies } from '../services/api';
 
-const pathUrl = '/popular';
+const pathUrl = 'popular';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
@@ -38,25 +39,17 @@ const FilmesPopulares = ( { navigation }) => {
     const scrollX = React.useRef(animacao).current;
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            const movies = await getMovies({path: pathUrl});
-            // Item vazios adicionados
-            // [empty_item, ...movies, empty_item]
-            setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
-        };
+
+        const recuperarFilmes = async () => {
+            const filmes = await getFilmes(pathUrl);
+            setMovies([{ key: 'empty-left' }, ...filmes, { key: 'empty-right' }]);
+        }
 
         if (movies.length === 0) {
-            fetchData(movies);
+            recuperarFilmes(movies)
         }
-    }, [movies]);
 
-    React.useEffect(() => {
-        Animated.spring(animacao, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: false // <-- Add this
-        }).start();
-    }, [])
+    }, [movies]);
 
     if (movies.length === 0) {
         return <Loading />;
@@ -122,7 +115,7 @@ const FilmesPopulares = ( { navigation }) => {
                                 <Genres genres={item.genres} />
                                 
                                 <TouchableOpacity onPress={() =>
-                                    navigation?.push('detalhe')
+                                    navigation.push('populares/Detalhes', {filme: item})
                                 }>
                                     <Text>Ver mais</Text>
                                 </TouchableOpacity >

@@ -1,4 +1,5 @@
-import { API_KEY } from '../config';
+import axios from 'axios'
+
 const genres = {
   12: 'Adventure',
   14: 'Fantasy',
@@ -21,15 +22,22 @@ const genres = {
   10770: 'TV Movie',
 };
 
-const API_URL = 'https://api.themoviedb.org/3/movie';
-
 const getImagePath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
 const getBackdropPath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
 
-export const getMovies = async ({path: urlPath}) => {
-  console.log(`${API_URL + urlPath} ?api_key=${API_KEY}`);
-  const { results } = await fetch(`${API_URL + urlPath}?api_key=${API_KEY}`).then((x) => x.json());
-  const movies = results.map(
+const ApiFilmes = axios.create({
+  baseURL:'https://api.themoviedb.org/3/movie/',
+  headers: {
+    'content-type':'application/json;charset=utf-8',
+    'Authorization':'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTA1ODA1MGY1ZTI4NWJiOGRjODE0ODQ1NmYzYzkyNiIsInN1YiI6IjVmNjkyODY1NWYyZGIxMDAzNTQ0ODAyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.B7BjLq8fAXKWnfSpL2TnA4pgYYbES1RoYT-4nlWTz7o'
+  }
+})
+
+export default ApiFilmes;
+
+export const getFilmes = async (pathUrl) => {
+  const retorno = await ApiFilmes.get(`${pathUrl}?language=pt-BR`);
+  const movies = retorno.data.results.map(
     ({
       id,
       original_title,
@@ -49,7 +57,6 @@ export const getMovies = async ({path: urlPath}) => {
       releaseDate: release_date,
       genres: genre_ids.map((genre) => genres[genre]),
     })
-  );
-
+  )
   return movies;
-};
+}
