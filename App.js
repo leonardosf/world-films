@@ -5,28 +5,27 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CommonActions } from '@react-navigation/native';
 
 import Home from './screens/home';
 import FilmesEmBreve from './screens/filmesEmBreve';
 import FilmesEmCartaz from './screens/filmesEmCartaz';
 import FilmesPopulares from './screens/filmesPopulares';
-import { Button, Text } from 'react-native-paper';
-import Detalhes from './screens/detalhes';
+import { Button } from 'react-native-paper';
+import PersonagemDetalhes from './screens/personagemDetalhes';
+import FilmesDetalhes from './screens/filmesDetalhes';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const NavigationDrawerStructure = (props) => {
-  //Structure for the navigatin Drawer
   const toggleDrawer = () => {
-    //Props to open/close the drawer
     props.navigationProps.toggleDrawer();
   };
 
   return (
     <View style={{ flexDirection: 'row' }}>
       <TouchableOpacity onPress={() => toggleDrawer()}>
-        {/*Donute Button Image */}
         <Button icon="menu" color="black" />
       </TouchableOpacity>
     </View>
@@ -80,8 +79,14 @@ function emCartazScreenStack({ navigation }) {
           title: 'Em Cartaz', //Set Header Title
         }} />
       <Stack.Screen
-        name="emCartaz/Detalhes"
-        component={Detalhes}
+        name="emcartaz/detalhes"
+        component={FilmesDetalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="personagem/detalhes"
+        component={PersonagemDetalhes}
         options={{
           title: 'Detalhes', //Set Header Title
         }} />
@@ -112,8 +117,14 @@ function popularesScreenStack({ navigation }) {
           title: 'Populares', //Set Header Title
         }} />
       <Stack.Screen
-        name="populares/Detalhes"
-        component={Detalhes}
+        name="populares/detalhes"
+        component={FilmesDetalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="personagem/detalhes"
+        component={PersonagemDetalhes}
         options={{
           title: 'Detalhes', //Set Header Title
         }} />
@@ -143,8 +154,14 @@ function emBreveScreenStack({ navigation }) {
           title: 'Em Breve', //Set Header Title
         }} />
       <Stack.Screen
-        name="emBreve/Detalhes"
-        component={Detalhes}
+        name="embreve/detalhes"
+        component={FilmesDetalhes}
+        options={{
+          title: 'Detalhes', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="personagem/detalhes"
+        component={PersonagemDetalhes}
         options={{
           title: 'Detalhes', //Set Header Title
         }} />
@@ -153,7 +170,6 @@ function emBreveScreenStack({ navigation }) {
 }
 
 const App = () => {
-
 
   return (
     <>

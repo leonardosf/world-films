@@ -19,8 +19,9 @@ import ImagemBackground from '../components/ImagemBackground';
 // apiService
 import { getFilmes } from '../services/api';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
 
-const pathUrl = 'upcoming';
+const pathUrl = 'movie/upcoming';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
@@ -70,6 +71,7 @@ const FilmesEmBreve = ({ navigation }) => {
                 )}
                 scrollEventThrottle={16}
                 renderItem={({ item, index }) => {
+                    index.toString()
                     if (!item.poster) {
                         return <View style={{ width: EMPTY_ITEM_SIZE }} />;
                     }
@@ -108,9 +110,11 @@ const FilmesEmBreve = ({ navigation }) => {
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
                                 <TouchableOpacity onPress={() =>
-                                    navigation.push('emBreve/Detalhes', {filme: item})
+                                    navigation.push('embreve/detalhes', {filme: item})
                                 }>
-                                    <Text>Ver mais</Text>
+                                    <Button style={{backgroundColor: '#0040FF'}}>
+                                        <Text style={{fontWeight: 'bold', fontSize: 15, color: 'white'}}>Ver mais</Text>
+                                    </Button>
                                 </TouchableOpacity >
                             </Animated.View>
                         </View>

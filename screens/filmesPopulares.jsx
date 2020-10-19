@@ -11,26 +11,25 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import { Button } from 'react-native-paper';
-
 // components
 import Genres from '../components/Genres';
 import Rating from '../components/Rating';
 import Loading from '../components/Loading';
 import ImagemBackground from '../components/ImagemBackground';
 import { getFilmes } from '../services/api';
+import { Button } from 'react-native-paper';
 
 // apiService
 // import { getMovies } from '../services/api';
 
-const pathUrl = 'popular';
+const pathUrl = 'movie/popular';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const FilmesPopulares = ( { navigation }) => {
+const FilmesPopulares = ({ navigation }) => {
 
     const [movies, setMovies] = React.useState([]);
 
@@ -76,6 +75,7 @@ const FilmesPopulares = ( { navigation }) => {
                 )}
                 scrollEventThrottle={16}
                 renderItem={({ item, index }) => {
+                    index.toString()
                     if (!item.poster) {
                         return <View style={{ width: EMPTY_ITEM_SIZE }} />;
                     }
@@ -113,11 +113,13 @@ const FilmesPopulares = ( { navigation }) => {
                                 </Text>
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
-                                
+
                                 <TouchableOpacity onPress={() =>
-                                    navigation.push('populares/Detalhes', {filme: item})
+                                    navigation.push('populares/detalhes', { filme: item })
                                 }>
-                                    <Text>Ver mais</Text>
+                                    <Button style={{ backgroundColor: '#0040FF' }}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'white' }}>Ver mais</Text>
+                                    </Button>
                                 </TouchableOpacity >
 
                             </Animated.View>

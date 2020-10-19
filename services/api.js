@@ -22,18 +22,16 @@ const genres = {
   10770: 'TV Movie',
 };
 
-const getImagePath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
+export const getImagePath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
 const getBackdropPath = (path) => `https://image.tmdb.org/t/p/w500${path}`;
 
-const ApiFilmes = axios.create({
-  baseURL:'https://api.themoviedb.org/3/movie/',
+export const ApiFilmes = axios.create({
+  baseURL:'https://api.themoviedb.org/3/',
   headers: {
     'content-type':'application/json;charset=utf-8',
     'Authorization':'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTA1ODA1MGY1ZTI4NWJiOGRjODE0ODQ1NmYzYzkyNiIsInN1YiI6IjVmNjkyODY1NWYyZGIxMDAzNTQ0ODAyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.B7BjLq8fAXKWnfSpL2TnA4pgYYbES1RoYT-4nlWTz7o'
   }
 })
-
-export default ApiFilmes;
 
 export const getFilmes = async (pathUrl) => {
   const retorno = await ApiFilmes.get(`${pathUrl}?language=pt-BR`);
