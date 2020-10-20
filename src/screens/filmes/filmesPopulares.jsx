@@ -7,31 +7,35 @@ import {
     Image,
     Dimensions,
     Animated,
-    Platform
+    Platform,
+    TouchableOpacity,
 } from 'react-native';
 
-// components
-import Genres from '../components/Genres';
-import Rating from '../components/Rating';
-import Loading from '../components/Loading';
-import ImagemBackground from '../components/ImagemBackground';
-
-// apiService
-import { getFilmes } from '../services/api';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
-const pathUrl = 'movie/now_playing';
+// components
+import Genres from '../../components/Genres';
+import Rating from '../../components/Rating';
+import Loading from '../../components/Loading';
+import ImagemBackground from '../../components/ImagemBackground';
+
+// apiService
+import { getFilmes } from '../../services/api';
+
+const pathUrl = 'movie/popular';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const FilmesEmCartaz = ({ navigation }) => {
+const FilmesPopulares = ({ navigation }) => {
 
     const [movies, setMovies] = React.useState([]);
-    const scrollX = React.useRef(new Animated.Value(0)).current;
+
+    const animacao = new Animated.Value(0);
+
+    const scrollX = React.useRef(animacao).current;
 
     React.useEffect(() => {
 
@@ -109,13 +113,15 @@ const FilmesEmCartaz = ({ navigation }) => {
                                 </Text>
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
+
                                 <TouchableOpacity onPress={() =>
-                                    navigation.push('emcartaz/detalhes', { filme: item })
+                                    navigation.push('populares/detalhes', { filme: item })
                                 }>
                                     <Button style={{ backgroundColor: '#0040FF' }}>
                                         <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'white' }}>Ver mais</Text>
                                     </Button>
                                 </TouchableOpacity >
+
                             </Animated.View>
                         </View>
                     );
@@ -139,4 +145,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FilmesEmCartaz;
+export default FilmesPopulares;

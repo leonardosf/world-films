@@ -5,15 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { CommonActions } from '@react-navigation/native';
-
-import Home from './screens/home';
-import FilmesEmBreve from './screens/filmesEmBreve';
-import FilmesEmCartaz from './screens/filmesEmCartaz';
-import FilmesPopulares from './screens/filmesPopulares';
 import { Button } from 'react-native-paper';
-import PersonagemDetalhes from './screens/personagemDetalhes';
-import FilmesDetalhes from './screens/filmesDetalhes';
+
+import Home from './src/screens/home/home';
+import FilmesEmBreve from './src/screens/filmes/filmesEmBreve';
+import FilmesEmCartaz from './src/screens/filmes/filmesEmCartaz';
+import FilmesPopulares from './src/screens/filmes/filmesPopulares';
+import PersonagemDetalhes from './src/screens/personagens/personagemDetalhes';
+import FilmesDetalhes from './src/screens/filmes/filmesDetalhes';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import Loading from '../components/Loading';
-import { ApiFilmes, getImagePath } from '../services/api';
+import Loading from '../../components/Loading';
+import { ApiFilmes, getImagePath } from '../../services/api';
 
 const { width, height } = Dimensions.get('window');
 const BACKDROP_HEIGHT = height * 0.50;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import Loading from '../components/Loading';
-import { ApiFilmes, getImagePath } from '../services/api';
+import Loading from '../../components/Loading';
+import { ApiFilmes, getImagePath } from '../../services/api';
 import { Row, Column } from 'react-native-responsive-grid'
-import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('window');
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;

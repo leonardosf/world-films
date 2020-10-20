@@ -7,35 +7,32 @@ import {
     Image,
     Dimensions,
     Animated,
-    Platform,
-    TouchableOpacity,
+    Platform
 } from 'react-native';
 
-// components
-import Genres from '../components/Genres';
-import Rating from '../components/Rating';
-import Loading from '../components/Loading';
-import ImagemBackground from '../components/ImagemBackground';
-import { getFilmes } from '../services/api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
-// apiService
-// import { getMovies } from '../services/api';
+// components
+import Genres from '../../components/Genres';
+import Rating from '../../components/Rating';
+import Loading from '../../components/Loading';
+import ImagemBackground from '../../components/ImagemBackground';
 
-const pathUrl = 'movie/popular';
+// apiService
+import { getFilmes } from '../../services/api';
+
+const pathUrl = 'movie/upcoming';
 
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const FilmesPopulares = ({ navigation }) => {
-
+const FilmesEmBreve = ({ navigation }) => {
+    
     const [movies, setMovies] = React.useState([]);
-
-    const animacao = new Animated.Value(0);
-
-    const scrollX = React.useRef(animacao).current;
+    const scrollX = React.useRef(new Animated.Value(0)).current;
 
     React.useEffect(() => {
 
@@ -113,15 +110,13 @@ const FilmesPopulares = ({ navigation }) => {
                                 </Text>
                                 <Rating rating={item.rating} />
                                 <Genres genres={item.genres} />
-
                                 <TouchableOpacity onPress={() =>
-                                    navigation.push('populares/detalhes', { filme: item })
+                                    navigation.push('embreve/detalhes', {filme: item})
                                 }>
-                                    <Button style={{ backgroundColor: '#0040FF' }}>
-                                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'white' }}>Ver mais</Text>
+                                    <Button style={{backgroundColor: '#0040FF'}}>
+                                        <Text style={{fontWeight: 'bold', fontSize: 15, color: 'white'}}>Ver mais</Text>
                                     </Button>
                                 </TouchableOpacity >
-
                             </Animated.View>
                         </View>
                     );
@@ -145,4 +140,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FilmesPopulares;
+export default FilmesEmBreve;
